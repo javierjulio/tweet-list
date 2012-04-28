@@ -57,6 +57,16 @@
 
   })();
 
-  window.TweetList = TweetList;
+  $.fn.tweetList = function(option) {
+    return this.each(function() {
+      var $this, data;
+      $this = $(this);
+      data = $this.data('tweetList');
+      if (!data) $this.data('tweetList', (data = new TweetList(this)));
+      if (typeof option === 'string') return data[option].call($this);
+    });
+  };
+
+  $.fn.tweetList.Constructor = TweetList;
 
 }).call(this);
