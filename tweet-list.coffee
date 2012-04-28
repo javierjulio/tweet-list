@@ -29,4 +29,11 @@ class TweetList
     
     text
 
-window.TweetList = TweetList
+$.fn.tweetList = ( option ) ->
+  this.each ->
+    $this = $(@)
+    data = $this.data 'tweetList'
+    if !data then $this.data 'tweetList', (data = new TweetList @)
+    if typeof option is 'string' then data[option].call $this
+
+$.fn.tweetList.Constructor = TweetList
