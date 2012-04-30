@@ -7,6 +7,7 @@
   TweetList = (function() {
 
     function TweetList() {
+      this.loadTweets = __bind(this.loadTweets, this);
       this.linkURLs = __bind(this.linkURLs, this);
       this.linkMentions = __bind(this.linkMentions, this);
       this.linkHashes = __bind(this.linkHashes, this);
@@ -53,6 +54,25 @@
       return text;
     };
 
+    TweetList.prototype.loadTweets = function() {
+      var parameters, query,
+        _this = this;
+      parameters = ["screen_name=javierjulio", "count=5", "trim_user=1", "include_rts=1", "include_entities=1"];
+      query = "?" + parameters.join("&");
+      console.log(query);
+      return $.ajax({
+        type: "GET",
+        dataType: "jsonp",
+        url: "http://api.twitter.com/1/statuses/user_timeline.json" + query,
+        error: function(xhr, status, error) {
+          return console.log('error handler');
+        },
+        success: function(data, status, xhr) {
+          return console.log('success handler');
+        }
+      });
+    };
+
     return TweetList;
 
   })();
@@ -64,6 +84,7 @@
       data = $this.data('tweetList');
       console.log($this, data);
       if (!data) $this.data('tweetList', (data = new TweetList(this)));
+      data.loadTweets();
       if (typeof option === 'string') return data[option].call($this);
     });
   };
