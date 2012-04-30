@@ -34,34 +34,40 @@
     };
 
     TweetList.prototype.linkHashes = function(text) {
-      var hash, url, _i, _len, _ref;
-      _ref = text.match(/\#[\w]*/gi);
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        hash = _ref[_i];
-        url = '<a href="http://twitter.com/#search/%23' + hash.replace("#", "") + '">' + hash + '</a>';
-        text = text.replace(hash, url);
+      var hash, hashes, url, _i, _len;
+      hashes = text.match(/\#[\w]*/gi);
+      if (hashes != null) {
+        for (_i = 0, _len = hashes.length; _i < _len; _i++) {
+          hash = hashes[_i];
+          url = '<a href="http://twitter.com/#search/%23' + hash.replace("#", "") + '">' + hash + '</a>';
+          text = text.replace(hash, url);
+        }
       }
       return text;
     };
 
     TweetList.prototype.linkMentions = function(text) {
-      var mention, url, username, _i, _len, _ref;
-      _ref = text.match(/@[\w]*/gi);
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        mention = _ref[_i];
-        username = mention.replace("@", "");
-        url = '@<a href="http://twitter.com/' + username + '">' + username + '</a>';
-        text = text.replace(mention, url);
+      var mention, mentions, url, username, _i, _len;
+      mentions = text.match(/@[\w]*/gi);
+      if (mentions != null) {
+        for (_i = 0, _len = mentions.length; _i < _len; _i++) {
+          mention = mentions[_i];
+          username = mention.replace("@", "");
+          url = '@<a href="http://twitter.com/' + username + '">' + username + '</a>';
+          text = text.replace(mention, url);
+        }
       }
       return text;
     };
 
     TweetList.prototype.linkURLs = function(text) {
-      var url, _i, _len, _ref;
-      _ref = text.match(/http(s)?:\/\/[\S]*/gi);
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        url = _ref[_i];
-        text = text.replace(url, '<a href="' + url + '">' + url + '</a>');
+      var url, urls, _i, _len;
+      urls = text.match(/http(s)?:\/\/[\S]*/gi);
+      if (urls != null) {
+        for (_i = 0, _len = urls.length; _i < _len; _i++) {
+          url = urls[_i];
+          text = text.replace(url, '<a href="' + url + '">' + url + '</a>');
+        }
       }
       return text;
     };
@@ -79,8 +85,26 @@
         error: function(xhr, status, error) {
           return console.log('error handler');
         },
-        success: function(data, status, xhr) {
-          return console.log('success handler');
+        success: function(tweets, status, xhr) {
+          var formattedTweet, from, html, isRetweet, permaUrl, timestamp, tweet, tweetId;
+          console.log('success handler');
+          console.log(tweets);
+          html = (function() {
+            var _i, _len, _results;
+            _results = [];
+            for (_i = 0, _len = tweets.length; _i < _len; _i++) {
+              tweet = tweets[_i];
+              isRetweet = tweet.retweeted_status;
+              from = isRetweet ? tweet.entities.user_mentions[0].screen_name : tweet.user.screen_name;
+              tweetId = isRetweet ? tweet.retweeted_status.id_str : tweet.id_str;
+              permaUrl = "http://twitter.com/" + from + "/status/" + tweetId;
+              timestamp = new Date();
+              formattedTweet = this.formatLinks(tweet.text);
+              _results.push('<div>' + formattedTweet + '<time datetime="' + timestamp + '" pubdate></time></div>');
+            }
+            return _results;
+          }).call(_this);
+          return _this.el.html(html.join(''));
         }
       });
     };
