@@ -86,10 +86,10 @@
           return console.log('error handler');
         },
         success: function(tweets, status, xhr) {
-          var formattedTweet, from, html, isRetweet, permaUrl, timestamp, tweet, tweetId;
+          var formattedTweet, from, htmlTweets, isRetweet, permaUrl, timestamp, tweet, tweetId;
           console.log('success handler');
           console.log(tweets);
-          html = (function() {
+          htmlTweets = (function() {
             var _i, _len, _results;
             _results = [];
             for (_i = 0, _len = tweets.length; _i < _len; _i++) {
@@ -104,7 +104,7 @@
             }
             return _results;
           }).call(_this);
-          return _this.el.html(html.join(''));
+          return _this.el.html(htmlTweets.join(''));
         }
       });
     };
