@@ -22,7 +22,7 @@
       this.linkMentions = __bind(this.linkMentions, this);
       this.linkHashes = __bind(this.linkHashes, this);
       this.formatLinks = __bind(this.formatLinks, this);      this.el = $(element);
-      this.settings = $.extend({}, defaults, options);
+      this.settings = $.extend({}, defaults, options, this.el.data());
       console.log('settings', this.settings);
     }
 
@@ -77,18 +77,16 @@
         _this = this;
       parameters = ["screen_name=" + this.settings.username, "count=" + this.settings.count, "trim_user=" + this.settings.trimUser, "include_rts=" + this.settings.includeRetweets, "include_entities=" + this.settings.includeEntities];
       query = "?" + parameters.join("&");
-      console.log(query);
       return $.ajax({
         type: "GET",
         dataType: "jsonp",
         url: "http://api.twitter.com/1/statuses/user_timeline.json" + query,
         error: function(xhr, status, error) {
-          return console.log('error handler');
+          return console.log('error');
         },
         success: function(tweets, status, xhr) {
           var formattedTweet, from, htmlTweets, isRetweet, permaUrl, timestamp, tweet, tweetId;
-          console.log('success handler');
-          console.log(tweets);
+          console.log('loaded', tweets);
           htmlTweets = (function() {
             var _i, _len, _results;
             _results = [];
