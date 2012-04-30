@@ -22,23 +22,32 @@ class TweetList
     text
   
   linkHashes: (text) =>
-    for hash in text.match(/\#[\w]*/gi)
-      url = '<a href="http://twitter.com/#search/%23' + hash.replace("#", "") + '">' + hash + '</a>'
-      text = text.replace(hash, url)
+    hashes = text.match(/\#[\w]*/gi)
+    
+    if hashes?
+      for hash in hashes
+        url = '<a href="http://twitter.com/#search/%23' + hash.replace("#", "") + '">' + hash + '</a>'
+        text = text.replace(hash, url)
     
     text
   
   linkMentions: (text) =>
-    for mention in text.match(/@[\w]*/gi)
-      username = mention.replace("@", "")
-      url = '@<a href="http://twitter.com/' + username + '">' + username + '</a>'
-      text = text.replace(mention, url)
+    mentions = text.match(/@[\w]*/gi)
+    
+    if mentions?
+      for mention in mentions
+        username = mention.replace("@", "")
+        url = '@<a href="http://twitter.com/' + username + '">' + username + '</a>'
+        text = text.replace(mention, url)
     
     text
   
   linkURLs: (text) =>
-    for url in text.match(/http(s)?:\/\/[\S]*/gi)
-      text = text.replace(url, '<a href="' + url + '">' + url + '</a>')
+    urls = text.match(/http(s)?:\/\/[\S]*/gi)
+    
+    if urls?
+      for url in urls
+        text = text.replace(url, '<a href="' + url + '">' + url + '</a>')
     
     text
   
