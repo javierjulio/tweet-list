@@ -2,6 +2,19 @@ $ = window.jQuery
 
 class TweetList
   
+  defaults =
+    count: 5
+    includeEntities: true
+    includeRetweets: true
+    timeout: 5000
+    trimUser: true
+    username: 'javierjulio'
+  
+  constructor: (element, options) ->
+    @el = $(element)
+    @settings = $.extend {}, defaults, options
+    console.log('settings', @settings)
+  
   formatLinks: (text) =>
     text = @linkURLs(text)
     text = @linkHashes(text)

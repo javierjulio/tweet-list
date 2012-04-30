@@ -5,13 +5,25 @@
   $ = window.jQuery;
 
   TweetList = (function() {
+    var defaults;
 
-    function TweetList() {
+    defaults = {
+      count: 5,
+      includeEntities: true,
+      includeRetweets: true,
+      timeout: 5000,
+      trimUser: true,
+      username: 'javierjulio'
+    };
+
+    function TweetList(element, options) {
       this.loadTweets = __bind(this.loadTweets, this);
       this.linkURLs = __bind(this.linkURLs, this);
       this.linkMentions = __bind(this.linkMentions, this);
       this.linkHashes = __bind(this.linkHashes, this);
-      this.formatLinks = __bind(this.formatLinks, this);
+      this.formatLinks = __bind(this.formatLinks, this);      this.el = $(element);
+      this.settings = $.extend({}, defaults, options);
+      console.log('settings', this.settings);
     }
 
     TweetList.prototype.formatLinks = function(text) {
