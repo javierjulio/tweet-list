@@ -60,17 +60,16 @@ class TweetList
       "include_entities=#{@settings.includeEntities}"
     ]
     query = "?" + parameters.join("&");
-    console.log(query)
+    
     $.ajax(
       type: "GET"
       dataType: "jsonp"
       url: "http://api.twitter.com/1/statuses/user_timeline.json" + query
       error: (xhr, status, error) =>
-        console.log('error handler')
+        console.log('error')
       ,
       success: (tweets, status, xhr) =>
-        console.log('success handler')
-        console.log(tweets)
+        console.log('loaded', tweets)
         # default output
         htmlTweets = for tweet in tweets
           isRetweet = tweet.retweeted_status
