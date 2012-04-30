@@ -44,11 +44,11 @@ class TweetList
   
   loadTweets: () =>
     parameters = [
-      "screen_name=javierjulio",
-      "count=5",
-      "trim_user=1",
-      "include_rts=1",
-      "include_entities=1"
+      "screen_name=#{@settings.username}",
+      "count=#{@settings.count}",
+      "trim_user=#{@settings.trimUser}",
+      "include_rts=#{@settings.includeRetweets}",
+      "include_entities=#{@settings.includeEntities}"
     ]
     query = "?" + parameters.join("&");
     console.log(query)

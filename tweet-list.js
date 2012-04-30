@@ -69,7 +69,7 @@
     TweetList.prototype.loadTweets = function() {
       var parameters, query,
         _this = this;
-      parameters = ["screen_name=javierjulio", "count=5", "trim_user=1", "include_rts=1", "include_entities=1"];
+      parameters = ["screen_name=" + this.settings.username, "count=" + this.settings.count, "trim_user=" + this.settings.trimUser, "include_rts=" + this.settings.includeRetweets, "include_entities=" + this.settings.includeEntities];
       query = "?" + parameters.join("&");
       console.log(query);
       return $.ajax({
