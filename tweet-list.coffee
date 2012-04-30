@@ -63,13 +63,13 @@ class TweetList
         console.log('success handler')
     )
     
-$.fn.tweetList = ( option ) ->
+$.fn.tweetList = (options) ->
   this.each ->
     $this = $(@)
     data = $this.data 'tweetList'
     console.log $this, data
-    if !data then $this.data 'tweetList', (data = new TweetList @)
+    if !data then $this.data 'tweetList', (data = new TweetList @, options)
     data.loadTweets()
-    if typeof option is 'string' then data[option].call $this
+    #if typeof option is 'string' then data[option].call $this
 
 $.fn.tweetList.Constructor = TweetList

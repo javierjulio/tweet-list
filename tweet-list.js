@@ -89,15 +89,14 @@
 
   })();
 
-  $.fn.tweetList = function(option) {
+  $.fn.tweetList = function(options) {
     return this.each(function() {
       var $this, data;
       $this = $(this);
       data = $this.data('tweetList');
       console.log($this, data);
-      if (!data) $this.data('tweetList', (data = new TweetList(this)));
-      data.loadTweets();
-      if (typeof option === 'string') return data[option].call($this);
+      if (!data) $this.data('tweetList', (data = new TweetList(this, options)));
+      return data.loadTweets();
     });
   };
 
