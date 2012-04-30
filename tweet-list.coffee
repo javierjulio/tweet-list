@@ -33,6 +33,7 @@ $.fn.tweetList = ( option ) ->
   this.each ->
     $this = $(@)
     data = $this.data 'tweetList'
+    console.log $this, data
     if !data then $this.data 'tweetList', (data = new TweetList @)
     if typeof option is 'string' then data[option].call $this
 

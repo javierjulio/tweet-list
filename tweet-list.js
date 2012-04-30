@@ -62,6 +62,7 @@
       var $this, data;
       $this = $(this);
       data = $this.data('tweetList');
+      console.log($this, data);
       if (!data) $this.data('tweetList', (data = new TweetList(this)));
       if (typeof option === 'string') return data[option].call($this);
     });
