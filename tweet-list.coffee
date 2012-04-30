@@ -59,8 +59,19 @@ class TweetList
       error: (xhr, status, error) =>
         console.log('error handler')
       ,
-      success: (data, status, xhr) =>
+      success: (tweets, status, xhr) =>
         console.log('success handler')
+        console.log(tweets)
+        # default output
+        htmlTweets = for tweet in tweets
+          isRetweet = tweet.retweeted_status
+          from = if isRetweet then tweet.entities.user_mentions[0].screen_name else tweet.user.screen_name
+          tweetId = if isRetweet then tweet.retweeted_status.id_str else tweet.id_str
+          permaUrl = "http://twitter.com/" + from + "/status/" + tweetId
+          timestamp = new Date()#@getTimestamp(tweet.created_at)
+          formattedTweet = @formatLinks(tweet.text)
+          '<div>' + formattedTweet + '<time datetime="' + timestamp + '" pubdate></time></div>'
+        @el.html(htmlTweets.join(''))
     )
     
 $.fn.tweetList = (options) ->
