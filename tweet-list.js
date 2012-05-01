@@ -113,11 +113,11 @@
 
   $.fn.tweetList = function(options) {
     return this.each(function() {
-      var $this, data;
-      $this = $(this);
-      data = $this.data('tweetList');
-      console.log($this, data);
-      if (!data) $this.data('tweetList', (data = new TweetList(this, options)));
+      var $el, data;
+      $el = $(this);
+      data = $el.data('tweetList');
+      console.log($el, data);
+      if (!data) $el.data('tweetList', (data = new TweetList(this, options)));
       return data.loadTweets();
     });
   };

@@ -84,11 +84,10 @@ class TweetList
     
 $.fn.tweetList = (options) ->
   this.each ->
-    $this = $(@)
-    data = $this.data 'tweetList'
-    console.log $this, data
-    if !data then $this.data 'tweetList', (data = new TweetList @, options)
+    $el = $(this)
+    data = $el.data 'tweetList'
+    console.log $el, data
+    if !data then $el.data 'tweetList', (data = new TweetList this, options)
     data.loadTweets()
-    #if typeof option is 'string' then data[option].call $this
 
 $.fn.tweetList.Constructor = TweetList
