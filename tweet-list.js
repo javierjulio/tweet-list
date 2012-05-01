@@ -93,7 +93,7 @@
             for (_i = 0, _len = tweets.length; _i < _len; _i++) {
               tweet = tweets[_i];
               isRetweet = tweet.retweeted_status;
-              from = isRetweet ? tweet.entities.user_mentions[0].screen_name : tweet.user.screen_name;
+              from = isRetweet ? tweet.entities.user_mentions[0].screen_name : tweet.user.id;
               tweetId = isRetweet ? tweet.retweeted_status.id_str : tweet.id_str;
               permaUrl = "http://twitter.com/" + from + "/status/" + tweetId;
               timestamp = new Date();

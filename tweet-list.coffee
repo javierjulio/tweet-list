@@ -73,7 +73,7 @@ class TweetList
         # default output
         htmlTweets = for tweet in tweets
           isRetweet = tweet.retweeted_status
-          from = if isRetweet then tweet.entities.user_mentions[0].screen_name else tweet.user.screen_name
+          from = if isRetweet then tweet.entities.user_mentions[0].screen_name else tweet.user.id
           tweetId = if isRetweet then tweet.retweeted_status.id_str else tweet.id_str
           permaUrl = "http://twitter.com/" + from + "/status/" + tweetId
           timestamp = new Date()#@getTimestamp(tweet.created_at)
