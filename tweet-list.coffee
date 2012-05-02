@@ -26,7 +26,7 @@ class TweetList
     
     if hashes?
       for hash in hashes
-        url = '<a href="http://twitter.com/#search/%23' + hash.replace("#", "") + '">' + hash + '</a>'
+        url = '<a href="http://twitter.com/search/%23' + hash.replace("#", "") + '">' + hash + '</a>'
         text = text.replace(hash, url)
     
     text
