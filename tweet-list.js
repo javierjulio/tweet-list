@@ -39,7 +39,7 @@
       if (hashes != null) {
         for (_i = 0, _len = hashes.length; _i < _len; _i++) {
           hash = hashes[_i];
-          url = '<a href="http://twitter.com/#search/%23' + hash.replace("#", "") + '">' + hash + '</a>';
+          url = '<a href="http://twitter.com/search/%23' + hash.replace("#", "") + '">' + hash + '</a>';
           text = text.replace(hash, url);
         }
       }
@@ -85,20 +85,22 @@
           return console.log('error');
         },
         success: function(tweets, status, xhr) {
-          var formattedTweet, from, htmlTweets, isRetweet, permaUrl, timestamp, tweet, tweetId;
+          var formattedTweet, from, htmlTweets, imageUsername, isRetweet, permaUrl, text, timestamp, tweet, tweetId;
           console.log('loaded', tweets);
           htmlTweets = (function() {
             var _i, _len, _results;
             _results = [];
             for (_i = 0, _len = tweets.length; _i < _len; _i++) {
               tweet = tweets[_i];
-              isRetweet = tweet.retweeted_status;
+              isRetweet = tweet.retweeted_status != null;
               from = isRetweet ? tweet.entities.user_mentions[0].screen_name : tweet.user.id;
               tweetId = isRetweet ? tweet.retweeted_status.id_str : tweet.id_str;
               permaUrl = "http://twitter.com/" + from + "/status/" + tweetId;
               timestamp = new Date();
-              formattedTweet = this.formatLinks(tweet.text);
-              _results.push('<div>' + formattedTweet + '<time datetime="' + timestamp + '" pubdate></time></div>');
+              text = isRetweet ? tweet.retweeted_status.text : tweet.text;
+              formattedTweet = this.formatLinks(text);
+              imageUsername = isRetweet ? tweet.retweeted_status.user.id : this.settings.username;
+              _results.push('<li><img src="https://api.twitter.com/1/users/profile_image/' + imageUsername + '"> ' + formattedTweet + '<time datetime="' + timestamp + '" pubdate></time></li>');
             }
             return _results;
           }).call(_this);
