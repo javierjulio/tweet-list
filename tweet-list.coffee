@@ -81,9 +81,10 @@ class TweetList
           timestamp = new Date()#@getTimestamp(tweet.created_at)
           text = if isRetweet then tweet.retweeted_status.text else tweet.text
           formattedTweet = @formatLinks(text)
-          imageUsername = if isRetweet then tweet.retweeted_status.user.id else @settings.username
-          '<li><img src="https://api.twitter.com/1/users/profile_image/' + imageUsername + '"> ' + formattedTweet + '<time datetime="' + timestamp + '" pubdate></time></li>'
-        @el.html(htmlTweets.join(''))
+          imageUsername = if isRetweet then tweet.retweeted_status.user.id else tweet.user.id
+          retweeted_by = if isRetweet then '<div class="retweet-by">Retweeted by <a href="http://twitter.com/' + @settings.username + '">' + @settings.username + '</a></div>' else ''
+          '<li><img src="https://api.twitter.com/1/users/profile_image/' + imageUsername + '"> ' + formattedTweet + retweeted_by + '<time datetime="' + timestamp + '" pubdate></time></li>'
+        @el.html(htmlTweets.join('')).animate({height:"toggle", opacity:"toggle"}, 300)
     )
 
 
