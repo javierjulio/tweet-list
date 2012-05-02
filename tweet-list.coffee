@@ -91,7 +91,6 @@ $.fn.tweetList = (options) ->
   this.each ->
     $el = $(this)
     data = $el.data 'tweetList'
-    console.log $el, data
     if !data then $el.data 'tweetList', (data = new TweetList this, options)
     data.loadTweets()
 
