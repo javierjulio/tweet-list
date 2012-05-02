@@ -72,7 +72,7 @@ class TweetList
         console.log('loaded', tweets)
         # default output
         htmlTweets = for tweet in tweets
-          isRetweet = tweet.retweeted_status
+          isRetweet = tweet.retweeted_status?
           from = if isRetweet then tweet.entities.user_mentions[0].screen_name else tweet.user.id
           tweetId = if isRetweet then tweet.retweeted_status.id_str else tweet.id_str
           permaUrl = "http://twitter.com/" + from + "/status/" + tweetId
