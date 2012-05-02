@@ -58,7 +58,8 @@ class TweetList
       "trim_user=#{@settings.trimUser}",
       "include_rts=#{@settings.includeRetweets}",
       "include_entities=#{@settings.includeEntities}"
-      #,"page=5" #use for testing RT's
+      #,"page=4" #use for testing variety (links, hashes, etc.)
+      #,"page=8" #use for testing RT's
     ]
     query = "?" + parameters.join("&");
     
