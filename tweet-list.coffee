@@ -77,7 +77,8 @@ class TweetList
           tweetId = if isRetweet then tweet.retweeted_status.id_str else tweet.id_str
           permaUrl = "http://twitter.com/" + from + "/status/" + tweetId
           timestamp = new Date()#@getTimestamp(tweet.created_at)
-          formattedTweet = @formatLinks(tweet.text)
+          text = if isRetweet then tweet.retweeted_status.text else tweet.text
+          formattedTweet = @formatLinks(text)
           '<div>' + formattedTweet + '<time datetime="' + timestamp + '" pubdate></time></div>'
         @el.html(htmlTweets.join(''))
     )
