@@ -9,20 +9,24 @@
     html { font-size: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
     html, button, input, select, textarea { font-family: Helvetica, sans-serif; color: #222; }
     body { margin: 0; font-size: 1em; line-height: 1.4; }
-    #container {margin: 0 auto; width: 600px;}
-    div.tweets {margin: 40px 0;}
-    div.tweets > div {margin-bottom: 8px;}
+    #container {margin: 20px auto; width: 600px;}
+    ul.tweets {border-top: 1px solid #ccc; list-style: none; margin: 0; padding: 20px 10px 0 10px;}
+    ul.tweets:before, ul.tweets:after { content: ""; display: table; }
+    ul.tweets:after { clear: both; }
+    ul.tweets { *zoom: 1; }
+    ul.tweets li {margin: 0 0 0 58px; min-height: 48px; padding-bottom: 15px; position: relative;}
+    ul.tweets li img {position: absolute; top: 0; left: -58px;}
   </style>
 </head>
 <body>
   
   <div id="container">
     
-    <div class="tweets">
-    </div>
+    <ul class="tweets" data-count="6">
+    </ul>
     
-    <div class="tweets" data-username="9mmedia">
-    </div>
+    <ul class="tweets" data-username="9mmedia" data-count="3">
+    </ul>
     
   </div>
   

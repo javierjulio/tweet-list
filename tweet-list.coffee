@@ -80,6 +80,7 @@ class TweetList
           text = if isRetweet then tweet.retweeted_status.text else tweet.text
           formattedTweet = @formatLinks(text)
           '<div>' + formattedTweet + '<time datetime="' + timestamp + '" pubdate></time></div>'
+          '<li>' + formattedTweet + '<time datetime="' + timestamp + '" pubdate></time></li>'
         @el.html(htmlTweets.join(''))
     )
     
