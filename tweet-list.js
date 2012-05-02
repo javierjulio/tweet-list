@@ -85,7 +85,7 @@
           return console.log('error');
         },
         success: function(tweets, status, xhr) {
-          var formattedTweet, from, htmlTweets, imageUsername, isRetweet, permaUrl, text, timestamp, tweet, tweetId;
+          var formattedTweet, from, htmlTweets, imageUsername, isRetweet, permaUrl, retweeted_by, text, timestamp, tweet, tweetId;
           console.log('loaded', tweets);
           htmlTweets = (function() {
             var _i, _len, _results;
@@ -99,12 +99,16 @@
               timestamp = new Date();
               text = isRetweet ? tweet.retweeted_status.text : tweet.text;
               formattedTweet = this.formatLinks(text);
-              imageUsername = isRetweet ? tweet.retweeted_status.user.id : this.settings.username;
-              _results.push('<li><img src="https://api.twitter.com/1/users/profile_image/' + imageUsername + '"> ' + formattedTweet + '<time datetime="' + timestamp + '" pubdate></time></li>');
+              imageUsername = isRetweet ? tweet.retweeted_status.user.id : tweet.user.id;
+              retweeted_by = isRetweet ? '<div class="retweet-by">Retweeted by <a href="http://twitter.com/' + this.settings.username + '">' + this.settings.username + '</a></div>' : '';
+              _results.push('<li><img src="https://api.twitter.com/1/users/profile_image/' + imageUsername + '"> ' + formattedTweet + retweeted_by + '<time datetime="' + timestamp + '" pubdate></time></li>');
             }
             return _results;
           }).call(_this);
-          return _this.el.html(htmlTweets.join(''));
+          return _this.el.html(htmlTweets.join('')).animate({
+            height: "toggle",
+            opacity: "toggle"
+          }, 300);
         }
       });
     };
@@ -118,7 +122,6 @@
       var $el, data;
       $el = $(this);
       data = $el.data('tweetList');
-      console.log($el, data);
       if (!data) $el.data('tweetList', (data = new TweetList(this, options)));
       return data.loadTweets();
     });
