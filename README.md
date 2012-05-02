@@ -30,3 +30,12 @@ define the options you want to customize using data attributes.
         </div>
         
         $('.tweets').tweetList();
+
+
+## Resources
+
+* Static URL for profile images based on screen_name (and other tricks) http://blog.abrah.am/2010/04/little-known-twitter-and-twitterapi.html
+* https://gist.github.com/2470244
+* http://lewissobotkiewicz.com/coffeescript-jquery-plugin-with-api/
+* https://github.com/twitter/bootstrap/blob/master/js/
+* http://www.onemoretake.com/2009/03/04/jquery-plugin-callbacks-and-events/
