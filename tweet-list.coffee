@@ -58,6 +58,7 @@ class TweetList
       "trim_user=#{@settings.trimUser}",
       "include_rts=#{@settings.includeRetweets}",
       "include_entities=#{@settings.includeEntities}"
+      #,"page=5" #use for testing RT's
     ]
     query = "?" + parameters.join("&");
     
@@ -83,7 +84,8 @@ class TweetList
           '<li><img src="https://api.twitter.com/1/users/profile_image/' + imageUsername + '"> ' + formattedTweet + '<time datetime="' + timestamp + '" pubdate></time></li>'
         @el.html(htmlTweets.join(''))
     )
-    
+
+
 $.fn.tweetList = (options) ->
   this.each ->
     $el = $(this)
