@@ -12,7 +12,7 @@
       this.linkMentions = __bind(this.linkMentions, this);
       this.linkHashes = __bind(this.linkHashes, this);
       this.formatLinks = __bind(this.formatLinks, this);      this.el = $(element);
-      this.settings = $.extend({}, defaults, options, this.el.data());
+      this.settings = $.extend({}, $.fn.tweetList.defaults, options, this.el.data());
       console.log('settings', this.settings);
     }
 

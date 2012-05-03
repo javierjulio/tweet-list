@@ -4,7 +4,7 @@ class TweetList
   
   constructor: (element, options) ->
     @el = $(element)
-    @settings = $.extend {}, defaults, options, @el.data()
+    @settings = $.extend {}, $.fn.tweetList.defaults, options, @el.data()
     console.log('settings', @settings)
   
   formatLinks: (text) =>
