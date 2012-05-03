@@ -1,20 +1,10 @@
 (function() {
-  var $, TweetList,
+  var $, TweetList, defaults,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
   $ = window.jQuery;
 
   TweetList = (function() {
-    var defaults;
-
-    defaults = {
-      count: 5,
-      includeEntities: true,
-      includeRetweets: true,
-      timeout: 5000,
-      trimUser: true,
-      username: 'javierjulio'
-    };
 
     function TweetList(element, options) {
       this.loadTweets = __bind(this.loadTweets, this);
@@ -85,25 +75,26 @@
           return console.log('error');
         },
         success: function(tweets, status, xhr) {
-          var formattedTweet, fromId, htmlTweets, isRetweet, permaUrl, retweet, retweeted_by, text, timestamp, tweet, tweetId;
+          var formattedTweet, htmlTweets, isRetweet, permaUrl, retweet, retweeted_by, text, timestamp, tweet, tweetId, userId, username;
           console.log('loaded', tweets);
           htmlTweets = (function() {
             var _i, _len, _results;
             _results = [];
             for (_i = 0, _len = tweets.length; _i < _len; _i++) {
               tweet = tweets[_i];
+              username = this.settings.username;
               isRetweet = tweet.retweeted_status != null;
               if (isRetweet) retweet = tweet.retweeted_status;
-              fromId = isRetweet ? retweet.user.id : tweet.user.id;
+              userId = isRetweet ? retweet.user.id : tweet.user.id;
               tweetId = isRetweet ? retweet.id_str : tweet.id_str;
-              permaUrl = "http://twitter.com/" + fromId + "/status/" + tweetId;
+              permaUrl = "http://twitter.com/" + userId + "/status/" + tweetId;
               timestamp = new Date();
               text = isRetweet ? retweet.text : tweet.text;
               formattedTweet = this.formatLinks(text);
-              retweeted_by = isRetweet ? '<div class="retweet-by">Retweeted by <a href="http://twitter.com/' + this.settings.username + '">' + this.settings.username + '</a></div>' : '';
+              retweeted_by = isRetweet ? '<div class="retweet-by">Retweeted by <a href="http://twitter.com/' + username + '">' + username + '</a></div>' : '';
               _results.push('<li>\
-            <a href="http://twitter.com/account/redirect_by_id?id=' + fromId + '">\
-              <img src="https://api.twitter.com/1/users/profile_image/' + fromId + '">\
+            <a href="http://twitter.com/account/redirect_by_id?id=' + userId + '">\
+              <img src="https://api.twitter.com/1/users/profile_image/' + userId + '">\
             </a>\
             ' + formattedTweet + retweeted_by + '\
             <time datetime="' + timestamp + '" pubdate></time>\
@@ -122,6 +113,15 @@
     return TweetList;
 
   })();
+
+  defaults = {
+    count: 5,
+    includeEntities: true,
+    includeRetweets: true,
+    timeout: 5000,
+    trimUser: true,
+    username: 'javierjulio'
+  };
 
   $.fn.tweetList = function(options) {
     return this.each(function() {
