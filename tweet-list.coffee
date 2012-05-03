@@ -2,14 +2,6 @@ $ = window.jQuery
 
 class TweetList
   
-  defaults =
-    count: 5
-    includeEntities: true
-    includeRetweets: true
-    timeout: 5000
-    trimUser: true
-    username: 'javierjulio'
-  
   constructor: (element, options) ->
     @el = $(element)
     @settings = $.extend {}, defaults, options, @el.data()
@@ -95,6 +87,14 @@ class TweetList
         @el.html(htmlTweets.join('')).animate({height:"toggle", opacity:"toggle"}, 300)
     )
 
+
+defaults =
+  count: 5
+  includeEntities: true
+  includeRetweets: true
+  timeout: 5000
+  trimUser: true
+  username: 'javierjulio'
 
 $.fn.tweetList = (options) ->
   this.each ->
