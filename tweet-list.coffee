@@ -61,7 +61,7 @@ class TweetList
       #,"page=4" #use for testing variety (links, hashes, etc.)
       #,"page=8" #use for testing RT's
     ]
-    query = "?" + parameters.join("&");
+    query = "?" + parameters.join("&")
     
     $.ajax(
       type: "GET"
@@ -72,7 +72,7 @@ class TweetList
       ,
       success: (tweets, status, xhr) =>
         console.log('loaded', tweets)
-        # default output
+        
         htmlTweets = for tweet in tweets
           isRetweet = tweet.retweeted_status?
           from = if isRetweet then tweet.entities.user_mentions[0].screen_name else tweet.user.id
