@@ -75,15 +75,23 @@ class TweetList
         
         htmlTweets = for tweet in tweets
           isRetweet = tweet.retweeted_status?
-          from = if isRetweet then tweet.entities.user_mentions[0].screen_name else tweet.user.id
-          tweetId = if isRetweet then tweet.retweeted_status.id_str else tweet.id_str
-          permaUrl = "http://twitter.com/" + from + "/status/" + tweetId
+          retweet = tweet.retweeted_status if isRetweet
+          fromId = if isRetweet then retweet.user.id else tweet.user.id
+          tweetId = if isRetweet then retweet.id_str else tweet.id_str
+          permaUrl = "http://twitter.com/" + fromId + "/status/" + tweetId
           timestamp = new Date()#@getTimestamp(tweet.created_at)
-          text = if isRetweet then tweet.retweeted_status.text else tweet.text
+          text = if isRetweet then retweet.text else tweet.text
           formattedTweet = @formatLinks(text)
-          imageUsername = if isRetweet then tweet.retweeted_status.user.id else tweet.user.id
           retweeted_by = if isRetweet then '<div class="retweet-by">Retweeted by <a href="http://twitter.com/' + @settings.username + '">' + @settings.username + '</a></div>' else ''
-          '<li><img src="https://api.twitter.com/1/users/profile_image/' + imageUsername + '"> ' + formattedTweet + retweeted_by + '<time datetime="' + timestamp + '" pubdate></time></li>'
+          
+          '<li>
+            <a href="http://twitter.com/account/redirect_by_id?id=' + fromId + '">
+              <img src="https://api.twitter.com/1/users/profile_image/' + fromId + '">
+            </a>
+            ' + formattedTweet + retweeted_by + '
+            <time datetime="' + timestamp + '" pubdate></time>
+          </li>'
+        
         @el.html(htmlTweets.join('')).animate({height:"toggle", opacity:"toggle"}, 300)
     )
 
