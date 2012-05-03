@@ -89,14 +89,6 @@ class TweetList
     )
 
 
-defaults =
-  count: 5
-  includeEntities: true
-  includeRetweets: true
-  timeout: 5000
-  trimUser: true
-  username: 'javierjulio'
-
 $.fn.tweetList = (options) ->
   this.each ->
     $el = $(this)
@@ -105,3 +97,11 @@ $.fn.tweetList = (options) ->
     data.loadTweets()
 
 $.fn.tweetList.Constructor = TweetList
+
+$.fn.tweetList.defaults =
+  count: 5
+  includeEntities: true
+  includeRetweets: true
+  timeout: 5000
+  trimUser: true
+  username: 'javierjulio'

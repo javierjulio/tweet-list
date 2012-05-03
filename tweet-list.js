@@ -1,5 +1,5 @@
 (function() {
-  var $, TweetList, defaults,
+  var $, TweetList,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
   $ = window.jQuery;
@@ -114,15 +114,6 @@
 
   })();
 
-  defaults = {
-    count: 5,
-    includeEntities: true,
-    includeRetweets: true,
-    timeout: 5000,
-    trimUser: true,
-    username: 'javierjulio'
-  };
-
   $.fn.tweetList = function(options) {
     return this.each(function() {
       var $el, data;
@@ -134,5 +125,14 @@
   };
 
   $.fn.tweetList.Constructor = TweetList;
+
+  $.fn.tweetList.defaults = {
+    count: 5,
+    includeEntities: true,
+    includeRetweets: true,
+    timeout: 5000,
+    trimUser: true,
+    username: 'javierjulio'
+  };
 
 }).call(this);
