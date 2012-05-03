@@ -66,19 +66,20 @@ class TweetList
         console.log('loaded', tweets)
         
         htmlTweets = for tweet in tweets
+          username = @settings.username
           isRetweet = tweet.retweeted_status?
           retweet = tweet.retweeted_status if isRetweet
-          fromId = if isRetweet then retweet.user.id else tweet.user.id
+          userId = if isRetweet then retweet.user.id else tweet.user.id
           tweetId = if isRetweet then retweet.id_str else tweet.id_str
-          permaUrl = "http://twitter.com/" + fromId + "/status/" + tweetId
+          permaUrl = "http://twitter.com/" + userId + "/status/" + tweetId
           timestamp = new Date()#@getTimestamp(tweet.created_at)
           text = if isRetweet then retweet.text else tweet.text
           formattedTweet = @formatLinks(text)
-          retweeted_by = if isRetweet then '<div class="retweet-by">Retweeted by <a href="http://twitter.com/' + @settings.username + '">' + @settings.username + '</a></div>' else ''
+          retweeted_by = if isRetweet then '<div class="retweet-by">Retweeted by <a href="http://twitter.com/' + username + '">' + username + '</a></div>' else ''
           
           '<li>
-            <a href="http://twitter.com/account/redirect_by_id?id=' + fromId + '">
-              <img src="https://api.twitter.com/1/users/profile_image/' + fromId + '">
+            <a href="http://twitter.com/account/redirect_by_id?id=' + userId + '">
+              <img src="https://api.twitter.com/1/users/profile_image/' + userId + '">
             </a>
             ' + formattedTweet + retweeted_by + '
             <time datetime="' + timestamp + '" pubdate></time>
