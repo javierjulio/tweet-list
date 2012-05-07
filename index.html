@@ -40,6 +40,13 @@
   <script src="tweet-list.js"></script>
   <script>
     $('.tweets').tweetList();
+    
+    $('.tweets:last')
+      .tweetList()
+      .bind('rendered', function(event){
+        event.preventDefault();
+        $(this).animate({height:"show", opacity:"show"}, 2000);
+      });
   </script>
   
 </body>
