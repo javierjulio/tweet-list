@@ -75,8 +75,9 @@
           return console.log('error');
         },
         success: function(tweets, status, xhr) {
-          var formattedTweet, htmlTweets, isRetweet, permaUrl, retweet, retweeted_by, text, timestamp, tweet, tweetId, userId, username;
+          var formattedTweet, htmlTweets, isRetweet, permaUrl, renderedEvent, retweet, retweeted_by, text, timestamp, tweet, tweetId, userId, username;
           console.log('loaded', tweets);
+          _this.el.trigger('loaded');
           htmlTweets = (function() {
             var _i, _len, _results;
             _results = [];
@@ -102,10 +103,13 @@
             }
             return _results;
           }).call(_this);
-          return _this.el.html(htmlTweets.join('')).animate({
-            height: "toggle",
-            opacity: "toggle"
-          }, 300);
+          renderedEvent = $.Event('rendered');
+          _this.el.html(htmlTweets.join('')).trigger(renderedEvent);
+          if (renderedEvent.isDefaultPrevented()) return;
+          return _this.el.animate({
+            height: "show",
+            opacity: "show"
+          }, 400);
         }
       });
     };

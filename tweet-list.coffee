@@ -87,7 +87,13 @@ class TweetList
             <time datetime="' + timestamp + '" pubdate></time>
           </li>'
         
-        @el.html(htmlTweets.join('')).animate({height:"toggle", opacity:"toggle"}, 300)
+        renderedEvent = $.Event('rendered')
+        
+        @el.html(htmlTweets.join('')).trigger(renderedEvent)
+        
+        return if renderedEvent.isDefaultPrevented()
+        
+        @el.animate({height:"show", opacity:"show"}, 400)
     )
 
 
