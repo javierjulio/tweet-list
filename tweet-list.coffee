@@ -65,6 +65,8 @@ class TweetList
       success: (tweets, status, xhr) =>
         console.log('loaded', tweets)
         
+        @el.trigger('loaded')
+        
         htmlTweets = for tweet in tweets
           username = @settings.username
           isRetweet = tweet.retweeted_status?
