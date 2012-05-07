@@ -14,6 +14,7 @@
       this.formatLinks = __bind(this.formatLinks, this);      this.el = $(element);
       this.settings = $.extend({}, $.fn.tweetList.defaults, options, this.el.data());
       console.log('settings', this.settings);
+      this.loadTweets();
     }
 
     TweetList.prototype.formatLinks = function(text) {
@@ -123,8 +124,9 @@
       var $el, data;
       $el = $(this);
       data = $el.data('tweetList');
-      if (!data) $el.data('tweetList', (data = new TweetList(this, options)));
-      return data.loadTweets();
+      if (!data) {
+        return $el.data('tweetList', (data = new TweetList(this, options)));
+      }
     });
   };
 

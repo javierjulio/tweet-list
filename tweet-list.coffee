@@ -6,6 +6,7 @@ class TweetList
     @el = $(element)
     @settings = $.extend {}, $.fn.tweetList.defaults, options, @el.data()
     console.log('settings', @settings)
+    @loadTweets()
   
   formatLinks: (text) =>
     text = @linkURLs(text)
@@ -102,7 +103,6 @@ $.fn.tweetList = (options) ->
     $el = $(this)
     data = $el.data 'tweetList'
     if !data then $el.data 'tweetList', (data = new TweetList this, options)
-    data.loadTweets()
 
 $.fn.tweetList.Constructor = TweetList
 
