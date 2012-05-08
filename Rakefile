@@ -11,3 +11,5 @@ task :minify do
 	minified = Uglifier.compile(File.read("tweet-list.js"))
 	File.open('tweet-list.min.js', 'w') {|fh| fh.write minified}
 end
+
+task :default => :"development"
