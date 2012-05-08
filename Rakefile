@@ -1,6 +1,12 @@
 require 'rubygems'
 require 'uglifier'
 
+desc "Deploy the latest build"
+task :deploy do
+  Rake::Task['minify'].invoke
+  #system "git push origin master"
+end
+
 desc "Prepare development environment"
 task :development do
   puts "Starting CoffeeScript for auto compiling"
