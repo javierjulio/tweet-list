@@ -83,13 +83,16 @@ class TweetList
           formattedTweet = @formatLinks(text)
           retweeted_by = if isRetweet then '<div class="retweet-by">Retweeted by <a href="http://twitter.com/' + username + '">' + username + '</a></div>' else ''
           
-          '<li>
-            <a href="http://twitter.com/account/redirect_by_id?id=' + userId + '">
-              <img src="https://api.twitter.com/1/users/profile_image/' + userId + '">
-            </a>
-            ' + formattedTweet + retweeted_by + '
-            <time datetime="' + timestamp + '" pubdate></time>
-          </li>'
+          """
+          <li>
+          <a href=\"http://twitter.com/account/redirect_by_id?id=#{userId}\">
+          <img src=\"https://api.twitter.com/1/users/profile_image/#{userId}\">
+          </a>
+          #{formattedTweet}
+          #{retweeted_by}
+          <time datetime=\"#{timestamp}\" pubdate></time>
+          </li>
+          """
         
         renderedEvent = $.Event('rendered')
         
