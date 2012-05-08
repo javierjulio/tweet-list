@@ -44,6 +44,19 @@ class TweetList
     
     text
   
+  zeroPad: (value) ->
+    if value < 10 then "0" + value else value
+  
+  timestamp: (date) =>
+    d = new Date(date)
+    year = @zeroPad d.getUTCFullYear()
+    month = @zeroPad d.getUTCMonth()
+    day = @zeroPad d.getUTCDate()
+    hour = @zeroPad d.getUTCHours()
+    minute = @zeroPad d.getUTCMinutes()
+    offset = d.getTimezoneOffset() / 60
+    "#{year}-#{month}-#{day}T#{hour}:#{minute}-0#{offset}:00"
+  
   buildApiUrl: () =>
     parameters = [
       "screen_name=#{@settings.username}",
@@ -78,7 +91,7 @@ class TweetList
           userId = if isRetweet then retweet.user.id else tweet.user.id
           tweetId = if isRetweet then retweet.id_str else tweet.id_str
           permaUrl = "http://twitter.com/" + userId + "/status/" + tweetId
-          timestamp = new Date()#@getTimestamp(tweet.created_at)
+          timestamp = @timestamp(tweet.created_at)
           text = if isRetweet then retweet.text else tweet.text
           formattedTweet = @formatLinks(text)
           retweetedBy = if isRetweet then '<div class="retweet-by">Retweeted by <a href="http://twitter.com/' + username + '">' + username + '</a></div>' else ''
