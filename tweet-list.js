@@ -9,6 +9,7 @@
     function TweetList(element, options) {
       this.loadTweets = __bind(this.loadTweets, this);
       this.buildApiUrl = __bind(this.buildApiUrl, this);
+      this.timestamp = __bind(this.timestamp, this);
       this.linkURLs = __bind(this.linkURLs, this);
       this.linkMentions = __bind(this.linkMentions, this);
       this.linkHashes = __bind(this.linkHashes, this);
@@ -64,6 +65,26 @@
       return text;
     };
 
+    TweetList.prototype.zeroPad = function(value) {
+      if (value < 10) {
+        return "0" + value;
+      } else {
+        return value;
+      }
+    };
+
+    TweetList.prototype.timestamp = function(date) {
+      var d, day, hour, minute, month, offset, year;
+      d = new Date(date);
+      year = this.zeroPad(d.getUTCFullYear());
+      month = this.zeroPad(d.getUTCMonth());
+      day = this.zeroPad(d.getUTCDate());
+      hour = this.zeroPad(d.getUTCHours());
+      minute = this.zeroPad(d.getUTCMinutes());
+      offset = d.getTimezoneOffset() / 60;
+      return "" + year + "-" + month + "-" + day + "T" + hour + ":" + minute + "-0" + offset + ":00";
+    };
+
     TweetList.prototype.buildApiUrl = function() {
       var parameters, protocol, query;
       parameters = ["screen_name=" + this.settings.username, "count=" + this.settings.count, "trim_user=" + this.settings.trimUser, "include_rts=" + this.settings.includeRetweets, "include_entities=" + this.settings.includeEntities];
@@ -96,7 +117,7 @@
               userId = isRetweet ? retweet.user.id : tweet.user.id;
               tweetId = isRetweet ? retweet.id_str : tweet.id_str;
               permaUrl = "http://twitter.com/" + userId + "/status/" + tweetId;
-              timestamp = new Date();
+              timestamp = this.timestamp(tweet.created_at);
               text = isRetweet ? retweet.text : tweet.text;
               formattedTweet = this.formatLinks(text);
               retweetedBy = isRetweet ? '<div class="retweet-by">Retweeted by <a href="http://twitter.com/' + username + '">' + username + '</a></div>' : '';

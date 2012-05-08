@@ -59,13 +59,13 @@ class TweetList
   
   buildApiUrl: () =>
     parameters = [
-      "screen_name=#{@settings.username}",
-      "count=#{@settings.count}",
-      "trim_user=#{@settings.trimUser}",
-      "include_rts=#{@settings.includeRetweets}",
+      "screen_name=#{@settings.username}"
+      "count=#{@settings.count}"
+      "trim_user=#{@settings.trimUser}"
+      "include_rts=#{@settings.includeRetweets}"
       "include_entities=#{@settings.includeEntities}"
-      #,"page=4" #use for testing variety (links, hashes, etc.)
-      #,"page=8" #use for testing RT's
+      #"page=4" #use for testing variety (links, hashes, etc.)
+      #"page=8" #use for testing RT's
     ]
     query = "?" + parameters.join("&")
     protocol = if window.location.protocol == 'https:' then 'https:' else 'http:'
