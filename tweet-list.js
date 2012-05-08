@@ -82,7 +82,7 @@
           return console.log('error');
         },
         success: function(tweets, status, xhr) {
-          var formattedTweet, htmlTweets, isRetweet, permaUrl, renderedEvent, retweet, retweeted_by, text, timestamp, tweet, tweetId, userId, username;
+          var formattedTweet, htmlTweets, isRetweet, permaUrl, renderedEvent, retweet, retweetedBy, text, timestamp, tweet, tweetId, userId, username;
           console.log('loaded', tweets);
           _this.el.trigger('loaded');
           htmlTweets = (function() {
@@ -99,8 +99,8 @@
               timestamp = new Date();
               text = isRetweet ? retweet.text : tweet.text;
               formattedTweet = this.formatLinks(text);
-              retweeted_by = isRetweet ? '<div class="retweet-by">Retweeted by <a href="http://twitter.com/' + username + '">' + username + '</a></div>' : '';
-              _results.push("<li>\n<a href=\"http://twitter.com/account/redirect_by_id?id=" + userId + "\">\n<img src=\"https://api.twitter.com/1/users/profile_image/" + userId + "\">\n</a>\n" + formattedTweet + "\n" + retweeted_by + "\n<time datetime=\"" + timestamp + "\" pubdate></time>\n</li>");
+              retweetedBy = isRetweet ? '<div class="retweet-by">Retweeted by <a href="http://twitter.com/' + username + '">' + username + '</a></div>' : '';
+              _results.push("<li>\n<a href=\"http://twitter.com/account/redirect_by_id?id=" + userId + "\">\n<img src=\"https://api.twitter.com/1/users/profile_image/" + userId + "\">\n</a>\n" + formattedTweet + "\n" + retweetedBy + "\n<time datetime=\"" + timestamp + "\" pubdate></time>\n</li>");
             }
             return _results;
           }).call(_this);
