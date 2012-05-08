@@ -44,7 +44,7 @@ class TweetList
     
     text
   
-  loadTweets: () =>
+  buildApiUrl: () =>
     parameters = [
       "screen_name=#{@settings.username}",
       "count=#{@settings.count}",
@@ -55,11 +55,14 @@ class TweetList
       #,"page=8" #use for testing RT's
     ]
     query = "?" + parameters.join("&")
-    
+    protocol = if window.location.protocol == 'https:' then 'https:' else 'http:'
+    "#{protocol}//api.twitter.com/1/statuses/user_timeline.json#{query}"
+  
+  loadTweets: () =>
     $.ajax(
       type: "GET"
       dataType: "jsonp"
-      url: "http://api.twitter.com/1/statuses/user_timeline.json" + query
+      url: @buildApiUrl()
       error: (xhr, status, error) =>
         console.log('error')
       ,

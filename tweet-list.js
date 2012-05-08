@@ -8,6 +8,7 @@
 
     function TweetList(element, options) {
       this.loadTweets = __bind(this.loadTweets, this);
+      this.buildApiUrl = __bind(this.buildApiUrl, this);
       this.linkURLs = __bind(this.linkURLs, this);
       this.linkMentions = __bind(this.linkMentions, this);
       this.linkHashes = __bind(this.linkHashes, this);
@@ -63,15 +64,20 @@
       return text;
     };
 
-    TweetList.prototype.loadTweets = function() {
-      var parameters, query,
-        _this = this;
+    TweetList.prototype.buildApiUrl = function() {
+      var parameters, protocol, query;
       parameters = ["screen_name=" + this.settings.username, "count=" + this.settings.count, "trim_user=" + this.settings.trimUser, "include_rts=" + this.settings.includeRetweets, "include_entities=" + this.settings.includeEntities];
       query = "?" + parameters.join("&");
+      protocol = window.location.protocol === 'https:' ? 'https:' : 'http:';
+      return "" + protocol + "//api.twitter.com/1/statuses/user_timeline.json" + query;
+    };
+
+    TweetList.prototype.loadTweets = function() {
+      var _this = this;
       return $.ajax({
         type: "GET",
         dataType: "jsonp",
-        url: "http://api.twitter.com/1/statuses/user_timeline.json" + query,
+        url: this.buildApiUrl(),
         error: function(xhr, status, error) {
           return console.log('error');
         },
