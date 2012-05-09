@@ -15,6 +15,7 @@ are the defaults.
         $('#my-tweets').tweetList(
           username: 'javierjulio',
           count: 5,
+          includeRetweets: true,
           timeout: 5000,
           error: function(el, username) {
             el.html('<div>Twitter might be down at the moment. You can try following @<a href="http://twitter.com/9mmedia">9mmedia</a>.</div>');
@@ -27,7 +28,7 @@ are the defaults.
 To implement multiple instances of the TweetList plugin on a page 
 define the options you want to customize using data attributes.
 
-        <div class="tweets" data-username="javierjulio" data-count="10" data-timeout="2000">
+        <div class="tweets" data-username="javierjulio" data-count="10" data-timeout="3000" data-include-retweets="false">
         </div>
         
         $('.tweets').tweetList();
