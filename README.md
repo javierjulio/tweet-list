@@ -12,6 +12,7 @@ Expanded on with permission.
 The plugin options available can be seen below. The values applied 
 are the defaults.
 
+        <script>
         $('#my-tweets').tweetList(
           username: 'javierjulio',
           count: 5,
@@ -24,6 +25,7 @@ are the defaults.
             // custom output
           }
         );
+        </script>
 
 To implement multiple instances of the TweetList plugin on a page 
 define the options you want to customize using data attributes.
@@ -31,7 +33,9 @@ define the options you want to customize using data attributes.
         <div class="tweets" data-username="javierjulio" data-count="10" data-timeout="3000" data-include-retweets="false">
         </div>
         
+        <script>
         $('.tweets').tweetList();
+        </script>
 
 
 ## Resources
