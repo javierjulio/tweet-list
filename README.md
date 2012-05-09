@@ -4,7 +4,8 @@ A CoffeeScript based jQuery plugin that retrieves a list of tweets
 that its HTML output is fully customizable. Plugin formats hashes, 
 mention, and URLs in anchor tags.
 
-Original JavaScript by [Daniel Lacy](http://daniellacy.com/) and used with permission.
+Original JavaScript by [Daniel Lacy](http://daniellacy.com/). 
+Expanded on with permission.
 
 ## Basic Usage
 
