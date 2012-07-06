@@ -36,7 +36,7 @@ class TweetList
     text
   
   linkURLs: (text) =>
-    urls = text.match(/http(s)?:\/\/[\S]*/gi)
+    urls = text.match(/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi)
     
     if urls?
       for url in urls
